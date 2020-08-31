@@ -30,6 +30,15 @@ tTransport = "websockets"
 tPort = 80
 topic = "channels/" + channelID + "/publish/" + writeAPIKey
 
+#calibraion table: (coefficient, offset)
+cals = [(0,0),  # HP
+        (0,0),  # LP1
+        (0,0),  # LP2
+        (0,0),  # DW
+        (0,0),  # TC1
+        (0,0),  # TC2
+        (0,0),  # TC3
+        (0,0)]  # TC4
 
 # create DAQ
 d=u3.U3()
@@ -52,8 +61,12 @@ while True:
     # DW don't scale drip wire
     scaledData[DWreg] = newData[DWreg]
 
+    # Calibrate data
+    calData = [scaledData[i]*cals[i][0]+cals[i][1] for i in range(len(scaledData))]
+
+
     # add timestamp
-    data = [time.time()]+scaledData
+    data = [time.time()]+calData
 
     # append to csv
     with open ("data/"+filename+".csv",'a') as logfile:                            
