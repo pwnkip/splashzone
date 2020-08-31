@@ -17,6 +17,9 @@ DWreg = 3
 TCreg = [4,5,6,7]
 
 tSample = 60  # take samples this often (seconds)
+tempLimit = 95 # turn off heater if above this temp (C)
+pressLimit = 1  # turn off heater if below this pressure (psi)
+DWLimit = 1.5  #turn off heater if above this voltage (v)
 
 print('Starting test '+filename+'...')
 
@@ -41,8 +44,10 @@ cals = [(0,0),  # HP
         (0,0)]  # TC4
 
 # create DAQ
+DAC0_REGISTER = 5000
 d=u3.U3()
 d.configIO(FIOAnalog = 0xff)
+
 
 while True:
     # read registers
@@ -82,5 +87,14 @@ while True:
         print("successfuly uploaded")
     except:
         print ("There was an error while publishing the data.")
+
+    #Limit Check
+    if (data[1]>pressLimit and data[2]>pressLimit and data[3]>pressLimit and
+        data[4]<DWLimit and
+        data[5]<tempLimit and data[6]<tempLimit and data[7]<tempLimit and data[8]<tempLimit):
+        d.writeRegister(DAC0_REGISTER, 5) # Set DAC0 to 5 V, turn on heater
+    else:
+        d.writeRegister(DAC0_REGISTER, 0) # Set DAC0 to 0 V, turn off heater
+        print('limit exceeded, heater disabled!')
 
     time.sleep(tSample)
