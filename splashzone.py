@@ -19,7 +19,7 @@ TCreg = [4,5,6,7]
 tSample = 90  # take samples this often (seconds)
 tempLimit = 95 # turn off heater if above this temp (C)
 pressLimit = 1  # turn off heater if below this pressure (psi)
-DWLimit = 1.5  #turn off heater if above this voltage (v)
+DWLimit = 1  #turn off heater if above this voltage (v)
 
 print('Starting test '+filename+'...')
 
