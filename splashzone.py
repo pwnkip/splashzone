@@ -16,7 +16,7 @@ LPreg = [1,2]
 DWreg = 3
 TCreg = [4,5,6,7]
 
-tSample = 60  # take samples this often (seconds)
+tSample = 90  # take samples this often (seconds)
 tempLimit = 95 # turn off heater if above this temp (C)
 pressLimit = 1  # turn off heater if below this pressure (psi)
 DWLimit = 1.5  #turn off heater if above this voltage (v)
@@ -34,14 +34,14 @@ tPort = 80
 topic = "channels/" + channelID + "/publish/" + writeAPIKey
 
 #calibraion table: (coefficient, offset)
-cals = [(0,0),  # HP
-        (0,0),  # LP1
-        (0,0),  # LP2
-        (0,0),  # DW
-        (0,0),  # TC1
-        (0,0),  # TC2
-        (0,0),  # TC3
-        (0,0)]  # TC4
+cals = [(.78,-0.2),  # HP
+        (1.05,0.13),  # LP1
+        (1.06,0.82),  # LP2
+        (1,0),  # DW
+        (1.01,3.95),  # TC1
+        (1.01,3.94),  # TC2
+        (1.01,4.65),  # TC3
+        (1.01,3.85)]  # TC4
 
 # create DAQ
 DAC0_REGISTER = 5000
