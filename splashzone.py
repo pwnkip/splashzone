@@ -18,7 +18,7 @@ TCreg = [4,5,6,7]
 
 tSample = 90  # take samples this often (seconds)
 tempLimit = 95 # turn off heater if above this temp (C)
-pressLimit = 1  # turn off heater if below this pressure (psi)
+pressLimit = 2  # turn off heater if below this pressure (psi)
 DWLimit = 1  #turn off heater if above this voltage (v)
 
 print('Starting test '+filename+'...')
@@ -34,9 +34,9 @@ tPort = 80
 topic = "channels/" + channelID + "/publish/" + writeAPIKey
 
 #calibraion table: (coefficient, offset)
-cals = [(.78,-0.2),  # HP
-        (1.05,0.13),  # LP1
-        (1.06,0.82),  # LP2
+cals = [(.79,-.13),  # HP
+        (1.04,0.12),  # LP1
+        (1.02,0.79),  # LP2
         (1,0),  # DW
         (1.01,3.95),  # TC1
         (1.01,3.94),  # TC2
